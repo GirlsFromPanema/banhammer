@@ -72,7 +72,8 @@ pm2 logs
 current logs (errors etc.) are displayed here.
   
 🎉 Your bot should run 24/7 now.
-  
+Make sure to invite it to your Server!
+
 ## Features:
   
 * Logging
