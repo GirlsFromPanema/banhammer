@@ -40,6 +40,9 @@ module.exports.run = async (message) => {
     const owner = await message.guild.fetchOwner();
     if(message.author.id !== owner) return;
 
+    // If user has a higher / or the same role, return
+    if (message.author.roles.highest.position >= message.guild.me.roles.highest.position) return;
+
     const embed = new MessageEmbed()
     .setTitle(`${emojis.notify} Warning`)
     .setDescription(`Dear ${message.author.username}, my owner doesn't like to get pinged.\nPlease, do not ping them, no matter what.\n\nYour timeout will be removed automatically after one hour.`)
