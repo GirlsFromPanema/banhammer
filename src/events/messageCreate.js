@@ -41,7 +41,7 @@ module.exports.run = async (message) => {
     if(message.author.id !== owner) return;
 
     // If user has a higher / or the same role, return
-    if (message.author.roles.highest.position >= message.guild.me.roles.highest.position) return;
+    if (message.member.roles.highest.position >= message.guild.me.roles.highest.position) return;
 
     const embed = new MessageEmbed()
     .setTitle(`${emojis.notify} Warning`)
