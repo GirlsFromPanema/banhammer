@@ -56,7 +56,14 @@ module.exports.run = async (message) => {
         message.channel.send({ content: `${emojis.notify} Ping\n**From:** ${message.author.tag}\n**Action:** Ping\n\n**Message:** ${message.content}` })
       }
 
-      message.author.send({ embeds: [embed] })
+      try {
+        message.author.send({ embeds: [embed] })
+      }catch(error) {
+        message.channel.send({ content: "Could not send DM to User, DMs are closed." })
+        console.log(error)
+        return;
+      }
+      
     }
   } catch (err) {
     return Promise.reject(err);
