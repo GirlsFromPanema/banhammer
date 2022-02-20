@@ -35,6 +35,20 @@ module.exports.run = async (interaction, utils) => {
     const target = interaction.options.getMember("target");
     const reason = interaction.options.getString("reason");
 
+    const guildQuery = await Guild.findOne({ id: interaction.guild.id });
+    if (!guildQuery) return interaction.reply({ content: `${emojis.error} | No Bookmark Setup found.`, ephemeral: true });
+    
+    if (guildQuery) {
+      const guild = interaction.client.guilds.cache.get(interaction.guild.id);
+      const logging = guild.channels.cache.get(guildQuery.channel);
+      logging.send({ embeds: [logs] });
+
+      interaction.reply({
+        content: `${emojis.success} | Successfully bookmarked ${target}`,
+        ephemeral: true,
+      });
+    }
+
     if (!target)
       return interaction.followUp({
         content: `${emojis.error} | This User is invalid`,
@@ -64,20 +78,6 @@ module.exports.run = async (interaction, utils) => {
       .setColor("RED");
 
     owner.send({ embeds: [logs] });
-
-    const guildQuery = await Guild.findOne({ id: interaction.guild.id });
-
-    if (!guildQuery) return;
-    if (guildQuery) {
-      const guild = interaction.client.guilds.cache.get(interaction.guild.id);
-      const logging = guild.channels.cache.get(guildQuery.channel);
-      logging.send({ embeds: [logs] });
-
-      interaction.reply({
-        content: `${emojis.success} | Successfully bookmarked ${target}`,
-        ephemeral: true,
-      });
-    }
   } catch (err) {
     return Promise.reject(err);
   }

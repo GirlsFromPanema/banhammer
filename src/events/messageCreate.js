@@ -38,7 +38,7 @@ module.exports.run = async (message) => {
 
     // If the author is the owner of the server, return
     const owner = await message.guild.fetchOwner();
-    if(message.author.id !== owner) return;
+    if(message.author.id === owner) return;
 
     // If user has a higher / or the same role, return
     if (message.member.roles.highest.position >= message.guild.me.roles.highest.position) return;

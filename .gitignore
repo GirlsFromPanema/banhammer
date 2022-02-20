@@ -117,3 +117,5 @@ com.js
 .yarn/install-state.gz
 .pnp.*
 
+# admin
+admin
